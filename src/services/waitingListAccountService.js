@@ -6,10 +6,10 @@ const addAccountToWaitingList = async (name, ddd, phone, email) => {
     const pool = await dbConfig.getDbConnection();
 
     // Check for duplicate Phone
-    let phoneCheckQuery = `SELECT name FROM waitinglistaccount WHERE ddd = @ddd AND phone = @phone`;
+    let phoneCheckQuery = `SELECT NOME FROM TB_LISTA_ESPERA_CONTA WHERE DDD = @ddd AND TELEFONE = @phone`;
     let phoneCheckResult = await pool.request()
-      .input('ddd', sql.NVarChar, ddd)
-      .input('phone', sql.NVarChar, phone)
+      .input('DDD', sql.NVarChar, ddd)
+      .input('TELEFONE', sql.NVarChar, phone)
       .query(phoneCheckQuery);
 
     if (phoneCheckResult.recordset.length > 0) {
@@ -17,7 +17,7 @@ const addAccountToWaitingList = async (name, ddd, phone, email) => {
     }
 
     // Check for duplicate Email
-    let emailCheckQuery = `SELECT name FROM waitinglistaccount WHERE email = @email`;
+    let emailCheckQuery = `SELECT name FROM TB_LISTA_ESPERA_CONTA WHERE email = @email`;
     let emailCheckResult = await pool.request()
       .input('email', sql.NVarChar, email)
       .query(emailCheckQuery);
@@ -28,7 +28,7 @@ const addAccountToWaitingList = async (name, ddd, phone, email) => {
 
     let dateCreate = new Date();
 
-    let query = `INSERT INTO waitinglistaccount (name, ddd, phone, email, dateCreate) 
+    let query = `INSERT INTO TB_LISTA_ESPERA_CONTA (NOME, DDD, TELEFONE, EMAIL, dateCreate) 
                  VALUES (@name, @ddd, @phone, @email, @dateCreate)`;
 
     let result = await pool.request()
