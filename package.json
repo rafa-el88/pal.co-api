@@ -3,7 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "cross-env NODE_ENV=dev node app.js",
+    "dev": "cross-env NODE_ENV=local nodemon app.js",
+    "hom": "cross-env NODE_ENV=hom node app.js",
+    "tests": "node --experimental-vm-modules node_modules/jest/bin/jest.js --watch",
+    "coverage": "node --experimental-vm-modules node_modules/jest/bin/jest.js -- --coverage"
   },
   "keywords": [],
   "author": "",

@@ -7,7 +7,7 @@ const waitingListAccountController = require('../controllers/waitingListAccountC
  * /waiting-list-account:
  *   post:
  *     summary: Add an account to the waiting list
- *     description: Adds a new account to the waiting list with Name, Phone, and Email.
+ *     description: Adds a new account to the waiting list with all required information.
  *     requestBody:
  *       required: true
  *       content:
@@ -24,6 +24,19 @@ const waitingListAccountController = require('../controllers/waitingListAccountC
  *               Email:
  *                 type: string
  *                 description: Email address of the account
+ *               Status:
+ *                 type: string
+ *                 description: Current status of the account
+ *                 enum: ['Pending', 'Approved', 'Rejected']
+ *                 default: 'Pending'
+ *               CreatedAt:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Account creation timestamp
+ *               UpdatedAt:
+ *                 type: string
+ *                 format: date-time
+ *                 description: Last update timestamp
  *     responses:
  *       201:
  *         description: Account added to waiting list
@@ -37,17 +50,23 @@ const waitingListAccountController = require('../controllers/waitingListAccountC
  *                   description: Success message
  *                 data:
  *                   type: object
- *                   description: Account data
+ *                   properties:
+ *                     Name:
+ *                       type: string
+ *                     Phone:
+ *                       type: string
+ *                     Email:
+ *                       type: string
+ *                     Status:
+ *                       type: string
+ *                     CreatedAt:
+ *                       type: string
+ *                       format: date-time
+ *                     UpdatedAt:
+ *                       type: string
+ *                       format: date-time
  *       400:
  *         description: Missing required fields
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 message:
- *                   type: string
- *                   description: Error message
  */
 router.post('/waiting-list-account', waitingListAccountController.create);
 

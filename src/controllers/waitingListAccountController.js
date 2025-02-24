@@ -4,7 +4,7 @@ const waitingListAccountService = require('../services/waitingListAccountService
 import { createWaitingListAccountSchema } from '../validations/waitingListAccountValidations';
 
 exports.create = async (req, res) => {
-  const { name, ddd, phone, email } = req.body;
+  const { name, ddd, phone, email, connectionMusic } = req.body;
 
   const { error } = createWaitingListAccountSchema.validate(req.body);
   if (error) {
@@ -12,7 +12,13 @@ exports.create = async (req, res) => {
   }
 
   try {
-    const result = await waitingListAccountService.addAccountToWaitingList(name, ddd, phone, email);
+    const result = await waitingListAccountService.addAccountToWaitingList(
+      name, 
+      ddd, 
+      phone, 
+      email,
+      connectionMusic
+    );
 
     if (result && result.duplicate) {
       return res.status(400).json({ message: `${result.field} já cadastrado para ${result.name}` });
