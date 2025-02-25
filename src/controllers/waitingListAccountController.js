@@ -10,7 +10,6 @@ export const create = async (req, res) => {
   const validation = validateWaitingList(req.body);
 
   if (!validation.isValid) {
-    console.log("Validation errors:", validation.errors);
     return res.status(400).json({ success: false, errors: validation.errors });
   }
 
@@ -25,7 +24,6 @@ export const create = async (req, res) => {
 
     if (result && result.duplicate) {
       const errorMessage = `${result.field} já cadastrado para ${result.name || 'outro usuário'}`;
-      console.log("Duplicate data error:", errorMessage);
       return res.status(400).json({ 
         success: false,
         message: errorMessage,

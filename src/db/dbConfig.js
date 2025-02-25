@@ -18,7 +18,6 @@ const getDbConnection = async () => {
             throw new Error('Database server configuration is missing');
         }
         const pool = await sql.connect(config);
-        console.log('Database connected successfully');
         return pool;
     } catch (err) {
         console.error('Database connection failed:', err);

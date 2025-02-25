@@ -1,18 +1,3 @@
-// const express = require('express');
-// const app = express();
-// const port = process.env.PORT || 3000;
-// const waitingListAccountRoutes = require('./src/routes/waitingListAccountModule');
-// const swaggerUi = require('swagger-ui-express');
-// const swaggerSpec = require('./swagger/swaggerConfig');
-
-// app.use(express.json());
-
-// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-// app.use('/', waitingListAccountRoutes);
-
-// app.listen(port, () => {
-//   console.log(`Server is running on port ${port}`);
-// });
 import path from 'path';
 import dotenv from 'dotenv';
 import { fileURLToPath } from 'url';
@@ -52,6 +37,7 @@ app.use((req, res) => {
 const PORT = process.env.PORT || 6005;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
+  console.log(`Swagger: http://localhost:${PORT}/swagger`);
 });
 
 export default app;
