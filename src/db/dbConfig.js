@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import sql from 'mssql';
 
 const config = {
@@ -13,7 +14,11 @@ const config = {
 
 const getDbConnection = async () => {
     try {
+        if (!process.env.DB_SERVER) {
+            throw new Error('Database server configuration is missing');
+        }
         const pool = await sql.connect(config);
+        console.log('Database connected successfully');
         return pool;
     } catch (err) {
         console.error('Database connection failed:', err);

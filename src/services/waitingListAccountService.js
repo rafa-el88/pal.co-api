@@ -8,8 +8,8 @@ const addAccountToWaitingList = async (name, ddd, phone, email, connectionMusic)
     // Check for duplicate Phone
     let phoneCheckQuery = `SELECT NOME FROM TB_LISTA_ESPERA_CONTA WHERE DDD = @ddd AND TELEFONE = @phone`;
     let phoneCheckResult = await pool.request()
-      .input('DDD', sql.NVarChar, ddd)
-      .input('TELEFONE', sql.NVarChar, phone)
+      .input('ddd', sql.NVarChar, ddd)
+      .input('phone', sql.NVarChar, phone)
       .query(phoneCheckQuery);
 
     if (phoneCheckResult.recordset.length > 0) {
