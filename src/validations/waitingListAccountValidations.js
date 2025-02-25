@@ -1,10 +1,12 @@
-const Joi = require('joi');
+import Joi from "joi";
 
 const createWaitingListAccountSchema = Joi.object({
-  name: Joi.string().required().messages({
+  name: Joi.string().required().max(255).messages({
     'string.empty': 'Nome é obrigatório',
+    'string.max': 'Nome deve ter no máximo 255 caracteres',
     'any.required': 'Nome é obrigatório'
   }),
+
   ddd: Joi.string().required().length(2).messages({
     'string.empty': 'DDD é obrigatório',
     'string.length': 'DDD deve ter 2 dígitos',
@@ -28,6 +30,30 @@ const createWaitingListAccountSchema = Joi.object({
   })
 });
 
-module.exports = {
-  createWaitingListAccountSchema
+const validateWaitingList = (data) => {
+    const options = {
+        abortEarly: false, // Isso faz retornar todos os erros ao invés de parar no primeiro
+        allowUnknown: false // Não permite campos desconhecidos
+    };
+
+    const { error } = createWaitingListAccountSchema.validate(data, options);
+    
+    if (error) {
+        const errorMessages = error.details.map(detail => ({
+            field: detail.path[0],
+            message: detail.message
+        }));
+        
+        return {
+            isValid: false,
+            errors: errorMessages
+        };
+    }
+
+    return {
+        isValid: true,
+        errors: []
+    };
 };
+
+export { createWaitingListAccountSchema, validateWaitingList };

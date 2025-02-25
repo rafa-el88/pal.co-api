@@ -1,24 +1,24 @@
 import dotenv from 'dotenv';
 import * as waitingListAccountService from '../services/waitingListAccountService.js';
-// import { createWaitingListAccountSchema } from '../validations/waitingListAccountValidations.js';
+import { validateWaitingList } from '../validations/waitingListAccountValidations.js';
 
 dotenv.config();
 
 export const create = async (req, res) => {
   const { name, ddd, phone, email, connectionMusic } = req.body;
 
-  console.log('Request body:', req.body); // Log para depuração
+  const validation = validateWaitingList(req.body);
 
-  // const { error } = createWaitingListAccountSchema.validate(req.body);
-  // if (error) {
-  //   return res.status(400).json({ message: error.details[0].message });
-  // }
+  if (!validation.isValid) {
+    console.log("Validation errors:", validation.errors);
+    return res.status(400).json({ success: false, errors: validation.errors });
+  }
 
   try {
     const result = await waitingListAccountService.addAccountToWaitingList(
-      name, 
-      ddd, 
-      phone, 
+      name,
+      ddd,
+      phone,
       email,
       connectionMusic
     );
