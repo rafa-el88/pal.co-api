@@ -5,7 +5,7 @@ const router = express.Router();
 
 /**
  * @swagger
- * /waitingListAccount:
+ * /api/waitingListAccount:
  *   post:
  *     summary: Add an account to the waiting list
  *     description: Adds a new account to the waiting list with all required information.

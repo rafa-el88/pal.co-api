@@ -21,7 +21,7 @@ const app = express();
 app.use(express.json());
 
 // Rotas
-app.use('/waitingListAccount', routes);
+app.use('/api/waitingListAccount', routes);
 // Configuração do Swagger
 app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
 
