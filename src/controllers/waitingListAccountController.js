@@ -24,13 +24,28 @@ export const create = async (req, res) => {
     );
 
     if (result && result.duplicate) {
-      return res.status(400).json({ message: `${result.field} já cadastrado para ${result.name}` });
+      const errorMessage = `${result.field} já cadastrado para ${result.name || 'outro usuário'}`;
+      console.log("Duplicate data error:", errorMessage);
+      return res.status(400).json({ 
+        success: false,
+        message: errorMessage,
+        duplicateData: {
+          field: result.field,
+          name: result.name || 'Usuário existente'
+        }
+      });
     }
 
-    res.status(201).json({ message: 'Dados adicionados à lista de espera' });
+    res.status(201).json({ 
+      success: true, 
+      message: 'Dados adicionados à lista de espera' 
+    });
   } catch (error) {
     console.error("Error adding account to waiting list:", error);
-    console.error("Error details:", error.message);
-    res.status(500).json({ message: 'Falha ao adicionar conta à lista de espera', error: error.message });
+    return res.status(500).json({ 
+      success: false, 
+      message: 'Falha ao adicionar conta à lista de espera', 
+      error: error.message 
+    });
   }
 };

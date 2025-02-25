@@ -13,7 +13,7 @@ const addAccountToWaitingList = async (name, ddd, phone, email, connectionMusic)
       .query(phoneCheckQuery);
 
     if (phoneCheckResult.recordset.length > 0) {
-      return { duplicate: true, field: 'Telefone', name: phoneCheckResult.recordset[0].name };
+      return { duplicate: true, field: 'Telefone', name: phoneCheckResult.recordset[0].NOME };
     }
 
     // Check for duplicate Email
@@ -23,7 +23,7 @@ const addAccountToWaitingList = async (name, ddd, phone, email, connectionMusic)
       .query(emailCheckQuery);
 
     if (emailCheckResult.recordset.length > 0) {
-      return { duplicate: true, field: 'Email', name: emailCheckResult.recordset[0].name };
+      return { duplicate: true, field: 'Email', name: emailCheckResult.recordset[0].NOME };
     }
 
     let dateCreate = new Date();

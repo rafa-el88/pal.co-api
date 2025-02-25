@@ -22,6 +22,7 @@ const createWaitingListAccountSchema = Joi.object({
     'string.email': 'Email inválido',
     'any.required': 'Email é obrigatório'
   }),
+  dateCreate: Joi.any().optional(), // Permite o campo dateCreate sem validação
   connectionMusic: Joi.object({
     value: Joi.string().required(),
     text: Joi.string().allow(null)
