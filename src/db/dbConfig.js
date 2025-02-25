@@ -1,29 +1,26 @@
-const sql = require('mssql');
-const dotenv = require('dotenv');
-dotenv.config();
+import sql from 'mssql';
 
 const config = {
-  server: process.env.DB_SERVER,
-  database: 'pal.co',
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  port: 1433,
-  options: {
-    encrypt: true,
-    trustServerCertificate: true
-  }
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    server: process.env.DB_SERVER,
+    database: process.env.DB_NAME,
+    options: {
+        encrypt: true,
+        trustServerCertificate: true
+    }
 };
 
-let pool;
+const getDbConnection = async () => {
+    try {
+        const pool = await sql.connect(config);
+        return pool;
+    } catch (err) {
+        console.error('Database connection failed:', err);
+        throw err;
+    }
+};
 
-async function getDbConnection() {
-  if (!pool) {
-    pool = await sql.connect(config);
-  }
-  return pool;
-}
-
-module.exports = {
-  sql,
-  getDbConnection
+export default {
+    getDbConnection
 };

@@ -1,5 +1,5 @@
-const sql = require('mssql');
-const dbConfig = require('../db/dbConfig');
+import sql from 'mssql';
+import dbConfig from '../db/dbConfig.js';
 
 const addAccountToWaitingList = async (name, ddd, phone, email, connectionMusic) => {
   try {
@@ -49,6 +49,4 @@ const addAccountToWaitingList = async (name, ddd, phone, email, connectionMusic)
   }
 };
 
-module.exports = {
-  addAccountToWaitingList
-};
+export { addAccountToWaitingList };

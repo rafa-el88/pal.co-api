@@ -1,6 +1,7 @@
-const express = require('express');
+import express from 'express';
+import * as waitingListAccountController from '../controllers/waitingListAccountController.js';
+
 const router = express.Router();
-const waitingListAccountController = require('../controllers/waitingListAccountController');
 
 /**
  * @swagger
@@ -68,6 +69,6 @@ const waitingListAccountController = require('../controllers/waitingListAccountC
  *       400:
  *         description: Missing required fields
  */
-router.post('/waiting-list-account', waitingListAccountController.create);
+router.post('/', waitingListAccountController.create);
 
-module.exports = router;
+export default router;
